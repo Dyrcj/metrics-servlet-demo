@@ -4,6 +4,7 @@ import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.servlets.HealthCheckServlet;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by yp-tc-m-7163 on 2017/3/28.
@@ -17,8 +18,7 @@ public class HealthCheckServletContextListener extends HealthCheckServlet.Contex
     }
 
     protected ExecutorService getExecutorService() {
-        // don't use a thread pool by default
-        return null;
+        return Executors.newCachedThreadPool();
     }
 
     protected HealthCheckRegistry getHealthCheckRegistry() {
