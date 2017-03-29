@@ -4,7 +4,7 @@
 
 Metrics提供了一系列用于衡量生产环境中关键组件行为的强大类库，来帮助开发者完成自定义的监控工作。本文通过一个简单的web应用来监控应用内部健康状态。
 
-##1. 引用Metrics到servlet中
+## 1. 引用Metrics到servlet中
 首先将dependency加入到pom文件中：
 Metrics需要的包
 ```xml
@@ -51,7 +51,7 @@ spring需要的包
     <context:component-scan base-package="com.yeepay.example"/>
 </beans>
 ```
-2. 实现数据库健康检查
+# 2. 实现数据库健康检查
 如果实现Metrics健康检查需要继承他的HealthCheck类：
 ```java
 @Component
@@ -80,7 +80,7 @@ public class DatabaseHealthCheck extends HealthCheck {
 }
 ```
 上面代码中的Database表示待监控的类，通过判断它是否为连接状态就可以知道它是否健康，同时将DatabaseHealthCheck注册到HealthCheckRegistry中。
-3. 实现ServletContextListener
+# 3. 实现ServletContextListener
 通过实现HealthCheckServlet.ContextListener类，可以将之前提到的HealthCheckRegistry传递给ServletContext。
 ```java
 public class HealthCheckServletContextListener extends HealthCheckServlet.ContextListener {
@@ -147,7 +147,7 @@ public SortedMap<String, HealthCheck.Result> runHealthChecks(ExecutorService exe
 ```
 可以看出如果设置了线程池就会并行探测结果。
 
-4. 配置MetricsConfiguration配置文件
+# 4. 配置MetricsConfiguration配置文件
 ```java
 @Configuration
 public class MetricsConfiguration {
@@ -163,7 +163,7 @@ public class MetricsConfiguration {
 }
 ```
 在Configuration文件中新建registry，自动装配。
-5. 实现自己的ServletContextListener将registry装配到Listener中：
+# 5. 实现自己的ServletContextListener将registry装配到Listener中：
 ```java
 public class MetricsServletsWiringContextListener implements ServletContextListener {
     @Autowired
@@ -259,7 +259,7 @@ protected void doGet(HttpServletRequest req,
     }
 }
 ```
-6. 最后就是设置web.xml属性了：
+# 6. 最后就是设置web.xml属性了：
 ```xml
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
