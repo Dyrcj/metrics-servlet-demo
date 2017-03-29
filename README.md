@@ -192,9 +192,11 @@ public class MetricsServletsWiringContextListener implements ServletContextListe
 }
 ```
 初始化context时的第一件事就是将listener自己装配到springcontext中：
+```java
 WebApplicationContextUtils.getRequiredWebApplicationContext(event.getServletContext())
         .getAutowireCapableBeanFactory()
         .autowireBean(this);
+```
 之后就是调用healthCheckServletContextListener的初始化方法，通过源码可看出他将healthcheckregistry与healthcheckexecutor主持到了ServletContext中：
 （Metrics源码）
 ```java
